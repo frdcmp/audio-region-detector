@@ -80,5 +80,18 @@ def main():
         else:
             st.error("Unsupported file format. Only xlsx and csv files are supported.")
 
+
+        # Download Text button
+        text_data = "start_region_table\n"
+        text_data += merged_df.apply(lambda row: f"{row['Start Time']} {row['End Time']} {row['File Names']}", axis=1).str.cat(sep='\n')
+        text_data += "\nend_region_table"
+        st.download_button(
+            label="Download Text",
+            data=text_data,
+            file_name='regions.txt',
+            mime='text/plain'
+        )
+
+
 if __name__ == "__main__":
     main()
